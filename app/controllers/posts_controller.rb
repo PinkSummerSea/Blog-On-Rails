@@ -9,9 +9,10 @@ class PostsController < ApplicationController
     def create
         @post = Post.new post_params
         if @post.save
+            flash[:notice] = "New Post Created"
             redirect_to post_path(@post)
         else  
-            render :new
+            render :new, status: 303
         end
     end
 
@@ -30,15 +31,17 @@ class PostsController < ApplicationController
     def update
         @post.update post_params
         if @post.save
+            flash[:notice] = "Post Updated"
             redirect_to post_path(@post)
         else  
-            render :edit
+            render :edit, status: 303
         end
 
     end
 
     def destroy 
         @post.destroy
+        flash[:notice] = "Post Deleted"
         redirect_to posts_path
     end
 

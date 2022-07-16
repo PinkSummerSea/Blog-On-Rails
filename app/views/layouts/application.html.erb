@@ -10,7 +10,7 @@
     <%= javascript_importmap_tags %>
   </head>
 
-  <body class="">
+  <body>
     <nav class="navbar navbar-expand-lg bg-light my-nav">
       <div class="container-fluid">
         <a class="navbar-brand" href="/">Blog On Rails</a>
@@ -20,8 +20,12 @@
          
       </div>
     </nav>
-   
-      <%= yield %>
+
+    <div class="my-1 mx-3 text-muted">
+    <%= flash[:notice] %>
+    </div>
+
+    <%= yield %>
    
   </body>
 </html>
