@@ -1,0 +1,8 @@
+<div class="index-posts-container">
+    <% @posts.each do |post| %>
+        <div>
+            <h5><%= link_to post.title, post_path(post) %></h5>
+            <p><%= post.body %></p>
+        </div>
+    <% end %> 
+</div>
