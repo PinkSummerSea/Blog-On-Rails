@@ -3,3 +3,29 @@
 <small>Posted <%= time_ago_in_words(@post.created_at) %> ago</small>
 <%= button_to "Edit", edit_post_path(@post), method: :get %> 
 <%= button_to "Delete", post_path(@post), method: :delete, form: { data: { turbo_confirm: "Are you sure?" } }%> 
+
+
+<% if @comment.errors.any? %>
+    <% @comment.errors.full_messages.each do |msg| %>
+        <p><%= msg %> </p>
+    <% end %>  
+<% end %> 
+
+<%= form_with(model:[@post, @comment]) do |form| %>
+    <div>
+        <%= form.label :body, "Comment" %>
+        <br>
+        <%= form.text_area :body %>  
+        <br>
+        <%= form.submit "Submit" %> 
+    <div>
+<% end %> 
+
+
+<% @comments.each do |comment|%>  
+    <div>
+        <p><%= comment.body %></p>
+        <small>Posted <%= time_ago_in_words(comment.created_at) %> ago</small>
+    </div>
+    <%= button_to "Delete", post_comment_path(@post, comment), method: :delete, form: {data: {turbo_confirm: 'Are you sure?'}} %> 
+<% end %> 
