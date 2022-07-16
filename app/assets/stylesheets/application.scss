@@ -13,3 +13,28 @@
  *= require_tree .
  *= require_self
  */
+
+@import "bootstrap";
+
+.one-line {
+    width: 90%;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.index-card {
+    width: 32%;
+}
+
+@media (max-width: 825px) {
+    .index-card {
+        width: 48%;
+    }
+}
+
+@media (max-width: 480px) {
+    .index-card {
+        width: 100%;
+    }
+}
