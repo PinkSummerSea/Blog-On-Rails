@@ -10,7 +10,7 @@ lorem_text = "Lorem Ipsum is simply dummy text of the printing and typesetting i
 
 
 
-
+Comment.destroy_all
 Post.destroy_all
 
 n = 1
