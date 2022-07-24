@@ -12,20 +12,42 @@ lorem_text = "Lorem Ipsum is simply dummy text of the printing and typesetting i
 
 Comment.destroy_all
 Post.destroy_all
+User.destroy_all
+
+super_user = User.create(
+    name: "Summer",
+    email: "lin.summer@outlook.com",
+    password: "123",
+    is_admin: true
+)
+
+10.times do
+    name = Faker::Name.first_name
+    User.create(
+        name: name,
+        email: "#{name.downcase}@gmail.com",
+        password: "123"
+    )
+end
+
+users = User.all
+
 
 n = 1
 
 55.times do
     p = Post.create(
             title: Faker::Book.title + "#{n}",
-            body: lorem_text
+            body: lorem_text,
+            user: users.sample
         )
 
     if p.valid?
         rand(5..10).times do
             Comment.create(
                 body: Faker::Quote.matz,
-                post: p
+                post: p,
+                user: users.sample
             )
         end
     end

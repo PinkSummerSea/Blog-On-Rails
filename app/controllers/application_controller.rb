@@ -7,7 +7,10 @@ class ApplicationController < ActionController::Base
     helper_method :current_user
 
     def authenticate_user!
-        redirect_to new_session_path, flash[:alert]= "Please Sign In" unless current_user # need to check if it works
+        if !current_user
+            flash[:alert]= "Please Sign In"
+            redirect_to new_session_path
+        end
     end
 
 end

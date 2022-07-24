@@ -1,4 +1,8 @@
 class UsersController < ApplicationController
+
+    before_action :find_user, except: [:new, :create]
+    before_action :authorize_user!, except: [:new, :create]
+
     def new
         @user = User.new
     end
@@ -14,11 +18,9 @@ class UsersController < ApplicationController
     end
 
     def edit
-        @user = User.find params[:id]
     end
 
     def update
-        @user = User.find params[:id]
         @user.update params.require(:user).permit!
         if @user.save
             redirect_to root_path, notice: "Successfully updated your account"
@@ -28,12 +30,9 @@ class UsersController < ApplicationController
     end
 
     def change_password
-        @user = User.find params[:id]
     end
 
     def patch_changed_password
-        
-        @user = User.find params[:id]
 
         #if params.require(:user).permit(:current_password) != params.require(:user).permit(:password)
             @user.update(params.require(:user).permit(:password, :password_confirmation))
@@ -43,5 +42,15 @@ class UsersController < ApplicationController
                 render :change_password
             end
 
+    end
+
+    private
+
+    def find_user
+        @user = User.find params[:id]
+    end
+    
+    def authorize_user!
+        redirect_to root_path, notice: "Not Authorized" unless can?(:crud, @user)
     end
 end

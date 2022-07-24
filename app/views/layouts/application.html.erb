@@ -29,7 +29,7 @@
     </nav>
 
     <div class="my-1 mx-3 text-muted">
-    <%= flash[:notice] %>
+    <%= flash[:notice] || flash[:alert] %>
     </div>
 
     <%= yield %>
