@@ -35,13 +35,16 @@ class UsersController < ApplicationController
     def patch_changed_password
 
         #if params.require(:user).permit(:current_password) != params.require(:user).permit(:password)
-            @user.update(params.require(:user).permit(:password, :password_confirmation))
-            if @user.save
-                redirect_to root_path, notice: "Password updated" and return 
-            else  
-                render :change_password
+           
+            if @user.authenticate(params[:user][:current_password])
+                if params[:user][:current_password] != params[:user][:password]
+                    @user.update(params.require(:user).permit(:password, :password_confirmation))
+                    if @user.save
+                        redirect_to root_path, notice: "Password updated" and return  
+                    end
+                end
             end
-
+            render :change_password
     end
 
     private

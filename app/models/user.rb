@@ -5,7 +5,7 @@ class User < ApplicationRecord
     has_many :posts, dependent: :destroy
     has_many :comments, dependent: :destroy
 
-    attr_accessor :current_password # ??
+    # attr_accessor :current_password # ??
 
     before_validation :downcase_email
 
@@ -13,7 +13,6 @@ class User < ApplicationRecord
     validates :name, presence: true
     validates :password_digest, presence: true
 
- 
     private
     
     def downcase_email
